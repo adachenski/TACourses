@@ -1,0 +1,17 @@
+{
+  "name": "courses",
+  "version": "0.0.1",
+  "description": "MEAN STACK APP",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Atanas Dachenski",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jade": "^1.11.0",
+    "stylus": "^0.54.5"
+  }
+}
