@@ -1,6 +1,4 @@
-doctype
-html
-    head
-        title Teleric Academy Courses
-    body
-        h1 Hello
+extends includes/layout
+block main-content
+    h1 Hi from index.
+    div(ng-controller='MainCtrl')  {{ hello }}
