@@ -21,6 +21,11 @@ app.use(stylus.middleware(
 
 app.use(express.static(__dirname+'/public'));
 
+app.get('/partials/:partialName',function(req,res){
+
+    res.render('partials/'+req.params.partialName)
+});
+
 app.get('*',function(req,res){
 
     res.render('index');
