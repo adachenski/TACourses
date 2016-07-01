@@ -1,5 +1,13 @@
 extends includes/layout
+div(ng-app='app')
 block main-content
-    h1 Hi from index.
-    div(ng-app='app')
-        div(ng-view)
+     .nav.navbar-inverse.navbar-fixed-top
+         .container
+             .navbar-header
+                 a.navbar-brand(href="#/") TA Courses
+             .navbar-collapse.collapse
+                 ul.nav.navbar.nav
+                     li
+                         a(href="/") Home
+
+     div(ng-view)
