@@ -10,7 +10,6 @@ var app = express();
 
 app.set('view engine','jade');
 app.set('views',__dirname+'/server/views');
-app.use(bodyParser());
 app.use(stylus.middleware(
     {
         src:__dirname+'/public',
@@ -46,7 +45,7 @@ var messageSchema = mongoose.Schema({
 var Message = mongoose.model('Message',messageSchema);
 var messageFromDataBase;
 
-Message.remove().exec(function(err){
+Message.remove({}).exec(function(err){
 
     if(err){
         console.log('Message could not be cleared '+err);
@@ -58,7 +57,7 @@ Message.remove().exec(function(err){
         .then(function(model){
         messageFromDataBase = model.message;
     });
-})
+});
 
 
 
@@ -74,4 +73,3 @@ app.get('*',function(req,res){
 
 app.listen(port);
 console.log('server running on port'+port);
-

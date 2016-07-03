@@ -1,13 +1,18 @@
 extends includes/layout
-div(ng-app='app')
 block main-content
-     .nav.navbar-inverse.navbar-fixed-top
-         .container
-             .navbar-header
-                 a.navbar-brand(href="#/") TA Courses
-             .navbar-collapse.collapse
-                 ul.nav.navbar.nav
-                     li
-                         a(href="/") Home
+    .nav.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="#/") TA Courses
+            .navbar-collapse.collapse
+                ul.nav.navbar-nav
+                    li
+                        a(href="partials/home") Home
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href="/") Login
 
-     div(ng-view)
+    div(ng-controller='MainCtrl') {{hello}}
+    footer
+        p.text.center
+            | Web Site 2016
