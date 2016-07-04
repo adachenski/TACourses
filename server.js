@@ -53,9 +53,11 @@ Message.remove({}).exec(function(err){
     }
 
     console.log('Message deleted!');
-    Message.create({message:'Hi from mongoose!'})
-        .then(function(model){
-        messageFromDataBase = model.message;
+    Message.create({message:'Hi from Mongoose'},function(err,mess){
+        if(err){
+            console.log(err)
+        }
+        messageFromDataBase= mess.message;
     });
 });
 
