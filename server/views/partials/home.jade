@@ -2,5 +2,18 @@
    Created by Just Nasko on 6/30/2016.
 .container
     .jumbotron
-        h1 Progtress Courses
+        h1 Progress Courses
         h2 Best IT Courses in the World
+
+    .row
+        .col-md-6
+            .panel
+                .panel-default
+                    .panel-heading.text-center Featured
+                    .panel-body(ng-include="'partials/featured-courses'")
+        .col-md-6
+            .panel
+                .panel-default
+                    .panel-heading.text-center New
+                    .panel-body(ng-include="'partials/new-courses'")
+

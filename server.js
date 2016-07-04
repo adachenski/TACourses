@@ -38,28 +38,8 @@ db.on('error',function(err){
     console.log(err);
 });
 
-var messageSchema = mongoose.Schema({
-    message:String
-});
-
-var Message = mongoose.model('Message',messageSchema);
 var messageFromDataBase;
 
-Message.remove({}).exec(function(err){
-
-    if(err){
-        console.log('Message could not be cleared '+err);
-        return;
-    }
-
-    console.log('Message deleted!');
-    Message.create({message:'Hi from Mongoose'},function(err,mess){
-        if(err){
-            console.log(err)
-        }
-        messageFromDataBase= mess.message;
-    });
-});
 
 
 

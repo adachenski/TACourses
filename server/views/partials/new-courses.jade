@@ -1,0 +1,8 @@
+//
+   Created by Just Nasko on 7/3/2016.
+
+
+div(ng-repeat="c in courses | orderBy:-published| limitTo:10")
+    .row
+        .col.col-md-3 {{c.published | date: 'MMM:d:yyyy'}}
+        .col-md-9 {{c.name}}
