@@ -43,9 +43,9 @@ var messageFromDataBase;
 
 
 
-app.get('/partials/:partialName',function(req,res){
+app.get('/partials/:folder/:partialName',function(req,res){
 
-    res.render('partials/'+req.params.partialName)
+    res.render('partials/'+req.params.folder+'/'+req.params.partialName)
 });
 
 app.get('*',function(req,res){

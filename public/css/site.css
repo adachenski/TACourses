@@ -1,6 +1,10 @@
 body {
   padding-top: 70px;
 }
+form input,
+.form-group input {
+  margin-right: 15px;
+}
 footer {
   padding-top: 15px;
   padding-right: 100px;

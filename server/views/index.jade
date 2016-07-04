@@ -7,10 +7,9 @@ block main-content
             .navbar-collapse.collapse
                 ul.nav.navbar-nav
                     li
-                        a(href="/#/partials/home") Home
+                        a(href="#/") Home
                 ul.nav.navbar-nav.navbar-right
-                    li
-                        a(href="/") Login
+                    div(ng-include="'partials/account/login'")
     section.container
         div(ng-view)
         div(ng-controller='MainCtrl')
