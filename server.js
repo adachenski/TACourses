@@ -1,4 +1,6 @@
 var express = require('express'),
+    stylus = require('stylus'),
+    bodyParser = require('body-parser'),
     mongoose = require('mongoose');
 var port = process.env.PORT || 3030;
 var env = process.env.NODE_ENV || 'development';
@@ -22,7 +24,18 @@ db.once('once',function(err){
 db.on('error',function(err){
     console.log(err);
 });
+app.set('view engine','jade');
+app.set('views',__dirname+'/server/views');
+app.use(stylus.middleware(
+    {
+        src:__dirname+'/public',
+        compile:function(str,path){
+            return stylus(str).set('filename',path);
+        }
+    }
+));
 
+app.use(express.static(__dirname+'/public'));
 
 app.get('/partials/:folder/:partialName',function(req,res){
 
