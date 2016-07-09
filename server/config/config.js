@@ -2,8 +2,18 @@
  * Created by Just Nasko on 7/4/2016.
  */
 var path = require('path');
-var roothPath = path.normalize(__dirname +"/../../")
+var rootPath = path.normalize(__dirname +'/../../')
 
-module.exports=function(){
-    roothPath:roothPath
+module.exports={
+
+    development:{
+
+        rootPath:rootPath,//Not working
+        db:'mongodb://localhost/telerikdb',
+        port:process.env.PORT || 3030
+    },
+    production:{
+
+        db:''
+    }
 }

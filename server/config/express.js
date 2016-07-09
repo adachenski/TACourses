@@ -6,6 +6,7 @@ var express = require('express'),
     bodyParser = require('body-parser');
 
 module.exports=function(app,config){
+
 app.set('view engine','jade');
 app.set('views',config.roothPath+'/server/views');
 app.use(bodyParser());

@@ -2,30 +2,18 @@ var express = require('express'),
     stylus = require('stylus'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose');
-var port = process.env.PORT || 3030;
+
+
 var env = process.env.NODE_ENV || 'development';
 var app = express();
 
-var config = require('./server/config/config')
-require('./server/config/express')(app,config);
-mongoose.connect('mongodb://localhost/telerikdb');
+var config = require('./server/config/config')[env];
 
-var db = mongoose.connection;
+require('./server/config/mongoose')(config);
 
-db.once('once',function(err){
-
-    if(err){
-        console.log('Database error:'+err);
-        return;
-    }
-    console.log('database is up and running!')
-});
-
-db.on('error',function(err){
-    console.log(err);
-});
 app.set('view engine','jade');
 app.set('views',__dirname+'/server/views');
+app.use(bodyParser());
 app.use(stylus.middleware(
     {
         src:__dirname+'/public',
@@ -37,6 +25,7 @@ app.use(stylus.middleware(
 
 app.use(express.static(__dirname+'/public'));
 
+
 app.get('/partials/:folder/:partialName',function(req,res){
 
     res.render('../../public/app/'+req.params.folder+'/'+req.params.partialName)
@@ -47,5 +36,5 @@ app.get('*',function(req,res){
     res.render('index');
 });
 
-app.listen(port);
-console.log('server running on port'+port);
+app.listen(config.port);
+console.log('server running on port '+config.port);
