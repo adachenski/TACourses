@@ -15,6 +15,7 @@ app.factory('auth',function($q,$http, identity){
 
                     deffer.resolve(true);
                     identity.currentUser = response.user;
+                    console.log(response.user);
                 }
                 else{
                     deffer.resolve(false);

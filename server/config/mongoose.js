@@ -4,7 +4,8 @@
 
 var mongoose = require('mongoose');
     passport = require('passport'),
-    localPassport = require('passport-local');
+    localPassport = require('passport-local'),
+    crypto = require('crypto');
 
 module.exports = function(config){
     mongoose.connect(config.db);
@@ -27,9 +28,22 @@ module.exports = function(config){
   var userShema=  mongoose.Schema({
         username:String,
         firstName: String,
-        lastName:String
-        //salt:String,
-        //hashPass:String
+        lastName:String,
+        salt:String,
+        hashPass:String
+    });
+
+    userShema.method({
+
+        authenticate:function(password){
+            if(generateHashedPassword(this.salt, password)==this.hashPass){
+
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     });
 
     var User = mongoose.model('User',userShema);
@@ -40,25 +54,47 @@ module.exports = function(config){
             console.log('Cannot find user '+err);
             return;
         }
-        if(collection.length==0){
-            User.create({
-                username:'adachenski',
-                firstName:'Atanas',
-                lastName:'Dachenski'
-            });
-            User.create({
-                username:'pdonchev',
-                firstName:'Petar',
-                lastName:'Donchev'
-            });
-            User.create({
-                username:'ganchev',
-                firstName:'Georgi',
-                lastName:'Anchev'
-            });
-            console.log('Users added to DataBase');
-        }
+       // User.remove({},function() {
+
+            if (collection.length == 0) {
+
+                var salt, hashedPwd;
+
+                salt = generateSalt();
+                hashedPwd = generateHashedPassword(salt, 'Atanas');
+
+                User.create({
+                    username: 'adachenski',
+                    firstName: 'Atanas',
+                    lastName: 'Dachenski',
+                    salt: salt,
+                    hashedPassword: hashedPwd
+                });
+
+                salt = generateSalt();
+                hashedPwd = generateHashedPassword(salt, 'Petar');
+                User.create({
+                    username: 'pdonchev',
+                    firstName: 'Petar',
+                    lastName: 'Donchev',
+                    salt: salt,
+                    hashedPassword: hashedPwd
+                });
+
+                salt = generateSalt();
+                hashedPwd = generateHashedPassword(salt, 'Georgi');
+                User.create({
+                    username: 'ganchev',
+                    firstName: 'Georgi',
+                    lastName: 'Anchev',
+                    salt: salt,
+                    hashedPassword: hashedPwd
+                });
+                console.log('Users added to DataBase');
+            }
+        //});
     });
+
     passport.use(new localPassport(function(username,password,done){
 
         User.findOne({username:username}).exec(function(err,user){
@@ -101,3 +137,14 @@ module.exports = function(config){
         })
     })
 };
+
+function generateSalt(){
+
+   return crypto.randomBytes(128).toString('base64');
+}
+
+function generateHashedPassword(salt,pwd){
+
+    var hmac = crypto.createHmac('sha1',salt);
+    return hmac.update(pwd).digest('hex');
+}
