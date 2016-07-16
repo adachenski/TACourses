@@ -11,3 +11,6 @@ ul.nav.navbar-nav.navbar-right(ng-show='identity.isAuthenticate()')
     li.dropdown
         a.dropdown-toggle(href='',data-toggle='dropdown')
             | {{ identity.currentUser.firstName+' '+identity.currentUser.lastName }}
+        ul.dropdown-menu
+            li
+                a(href='/' ng-click='signout()') Sign Out
