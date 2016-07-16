@@ -15,12 +15,24 @@ app.factory('auth',function($q,$http, identity){
 
                     deffer.resolve(true);
                     identity.currentUser = response.user;
-                    console.log(response.user);
                 }
                 else{
                     deffer.resolve(false);
                 }
             });
+            return deffer.promise;
+        },
+        logout:function(){
+
+            var deffer = $q.defer();
+            http.post('/logout').success(function(response){
+                if(response.success){
+                    identity.currentUser= undefined;
+                    deffer.resolve(true);
+                }
+                deffer.resolve(false);
+            });
+
             return deffer.promise;
         }
     }

@@ -24,5 +24,13 @@ module.exports={
         });
 
         auth(req,res,next);
+    },
+    logout:function(req, res, next){
+        req.logout(function(err){
+            if(err){
+                return next(err);
+            }
+            res.end({success:true});
+        });
     }
 }
